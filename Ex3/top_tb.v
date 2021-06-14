@@ -71,17 +71,25 @@ module top_tb(
 		#(half_period)   expected<=8'd1;
 		#(half_period)   bench_change<=1'b0;
 		#(half_period)   bench_change<=1'b1;
+		                 expected<=expected-8'd1;
+        	#(2*half_period) expected<=expected-8'd1;                                       
+		#(2*half_period) bench_on_off<=1'b1;
+		                 expected<=expected+8'd1;
+		#(2*half_period) expected<=expected+8'd1;
+		#(2*half_period) bench_on_off=1'b0;
 	end
 
     initial 
         begin 
-        #(31*half_period);
+        #(37*half_period);
         forever 
             begin 
                 expected<=expected-8'd1;
                 #(2*half_period);
             end
         end 
+
+	initial
 
 	initial
 	begin
