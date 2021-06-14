@@ -19,7 +19,7 @@
 //
 //  outputs:
 //           out
-//////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
 
 `timescale 1ns / 100ps
 
@@ -32,6 +32,6 @@ module blinds(
     
     wire   out;
          
-               assign out=func[{a,b}]; // simple concatenation 
+               assign out=func[{a,b}]; // simple concatenation 1 line sol
 
 endmodule
