@@ -30,9 +30,9 @@ module monitor (clk,rst,change,on_off,counter_out);
 		if (rst)
 			counter_out<=8'd0;
 		else 
-			if (change)
-				counter_out<=counter_out+8'd1*(on_off)-8'd1*(!on_off);
-	end
+			counter_out<=counter_out+8'd1*(change)*(on_off-!on_off); 			// could use if statements instead but more lines of code
+ 
+		end
 			
 				
 	
