@@ -20,13 +20,13 @@
 
 `timescale 1ns / 100ps
 
-module doorbell(
-    //Todo: define inputs here
-    );
-    
-    //Todo: define registers and wires here
+module doorbell(a,b,sel,out);
+	input a;
+	input b;
+    	input sel;
 
+	output out;                
+	
+	wire #5 out=(sel==1)? b:a;
 
-    //Todo: define your logic here                 
-      
 endmodule
