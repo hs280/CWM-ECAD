@@ -12,4 +12,26 @@
 //  outputs:
 //           heating, cooling
 //////////////////////////////////////////////////////////////////////////////////
+ module main(clk,temperature,heating,cooling);
+	input clk;
+	input [4:0]temperature;
+	output reg heating;
+	output reg cooling;
 
+	always @(posedge clk)
+		begin 
+			if (heating) begin
+				heating=(temperature<5'd20)? 1:
+					0;
+				cooling=0; end
+			else if (cooling) begin 
+				cooling=(temperature>5'd20)? 1:
+					0;
+				heating=0; end
+			else begin
+				heating=(temperature>5'd18)? 0:
+					1;
+				cooling=(temperature<5'd22)? 0:
+					1; end
+		end
+endmodule
