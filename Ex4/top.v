@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////////
 // Exercise #4 - Dynamic LED lights
-// Student Name: Haris Saeed
+// Student Name:Haris Saeed
 // Date: 14/06/21
 //
 //  Description: In this exercise, you need to design a LED based lighting solution, 
