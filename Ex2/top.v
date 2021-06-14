@@ -27,6 +27,6 @@ module doorbell(a,b,sel,out);
 
 	output out;                
 	
-	wire #5 out=(sel==1)? b:a;
+	wire #5 out=(sel)? b:a;
 
 endmodule
