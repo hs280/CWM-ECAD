@@ -13,7 +13,7 @@
 module top_tb(
     );
 	
-	parameter half_period=5;	
+	parameter half_period=3;	
     
 	reg bench_clk=1'b0;
 	reg err=1'b0;
@@ -85,7 +85,7 @@ module top_tb(
 
 	initial
 	begin
-		 #(500*half_period)
+		#(200*half_period)
 		if (err) begin
             		$display("***TEST FAILED!**"); end
 		else begin
