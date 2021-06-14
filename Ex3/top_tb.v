@@ -70,11 +70,22 @@ module top_tb(
 		#(half_period)   bench_on_off<=1'b0;
 		#(half_period)   expected<=8'd1;
 		#(half_period)   bench_change<=1'b0;
+		#(half_period)   bench_change<=1'b1;
 	end
+
+    initial 
+        begin 
+        #(31*half_period);
+        forever 
+            begin 
+                expected<=expected-8'd1;
+                #(2*half_period);
+            end
+        end 
 
 	initial
 	begin
-		 #(40*half_period)
+		 #(500*half_period)
 		if (err) begin
             		$display("***TEST FAILED!**"); end
 		else begin
