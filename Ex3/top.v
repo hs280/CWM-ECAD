@@ -27,11 +27,7 @@ module monitor (clk,rst,change,on_off,counter_out);
 	output reg [7:0] counter_out;
                     
 	always @ (posedge clk or posedge rst) begin 
-		if (rst)
-			counter_out<=8'd0;
-		else 
-			counter_out<=counter_out+8'd1*(change)*(on_off-!on_off); 			// could use if statements instead but more lines of code
- 
+		counter_out=(rst)? 8'd0: (change && on_off)? counter_out+8'd1: (change && !on_off)? counter_out-8'd1: counter_out; 			// could use if statements instead but more lines of code
 		end
 			
 				
