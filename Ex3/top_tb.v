@@ -75,9 +75,7 @@ module top_tb(
 	initial
 	begin
 		 #(40*half_period)
-		if (err!=0) begin 
-
-
+		if (err) begin
             		$display("***TEST FAILED!**"); end
 		else begin
 			$display("***TEST PASSED!**");
