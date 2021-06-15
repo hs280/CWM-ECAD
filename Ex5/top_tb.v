@@ -52,7 +52,7 @@ module testbench;
 		else if (bench_cooling)  
 			expected<=(bench_temperature>5'd20)? 2'b01:2'b00;
 		else 
-			expected<=(bench_temperature>=22)? 2'b01:(bench_temperature<=19)? 2'b10:2'b00;
+			expected<=(bench_temperature>=22)? 2'b01:(bench_temperature<=18)? 2'b10:2'b00;
 
 		if (expected!={bench_heating,bench_cooling}) begin
 			error_flag<=1'b1;
@@ -60,6 +60,10 @@ module testbench;
 		else error_flag<=error_flag;
     	end   
     
+	initial begin 
+		#200 bench_temperature<=26;
+		#200 bench_temperature<=20;
+	end
     
 	initial
 	begin
