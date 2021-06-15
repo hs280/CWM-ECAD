@@ -12,6 +12,7 @@
 //  outputs:
 //           heating, cooling
 //////////////////////////////////////////////////////////////////////////////////
+`timescale 1ns / 100ps
 
  module main(clk,temperature,heating,cooling);
 	input clk;

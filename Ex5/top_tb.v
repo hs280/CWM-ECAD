@@ -6,7 +6,7 @@
 // Description: A testbench module to test Ex5 - Air Conditioning
 // You need to write the whole file
 //////////////////////////////////////////////////////////////////////////////////
-
+`timescale 1ns / 100ps
 
 module testbench;
 
