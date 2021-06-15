@@ -15,6 +15,9 @@
 //
 //  You need to write the whole file.
 //////////////////////////////////////////////////////////////////////////////////
+
+`timescale 1ns / 100ps
+
 module top(clk,rst,button,colour);
 	input clk;
 	input rst;
