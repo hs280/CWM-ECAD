@@ -12,9 +12,9 @@
 module testbench;
 
 	reg bench_clk=1'b0;
-	reg [2:0]bench_colour=3'd0;
-	reg bench_enable=1'd0;
-	reg [23:0]expected=24'bx;
+	reg [2:0]bench_colour=3'b0;
+	reg bench_enable=1'd1;
+	reg [23:0]expected=24'hx;
 	reg error_flag=1'b0;
 	wire bench_rgb;
 
@@ -53,10 +53,11 @@ module testbench;
 					default:  expected<=24'hx;		
                 endcase 
             end    	    
-
+initial 
+    #2;
     always 
 		  begin
-			#7 bench_colour<=bench_colour+3'b1;
+			#5 bench_colour<=bench_colour+3'b1;
 			error_flag<=(expected!=bench_rgb)? 1'b1:error_flag;
 			$display("***TEST FAILED*** ACTUAL=%h , EXPECTED=%h,  COLOUR=%b",bench_rgb,expected,bench_colour);			
         end
