@@ -20,17 +20,16 @@ module top(clk,rst,button,colour);
 	input rst;
 	input button;
 	output reg [2:0] colour;
-
 	always @(posedge clk or posedge rst)
-		begin 
+		begin
 		if (rst || ^colour==3'bx)
-			colour<=3'b000;    /// assume goes to 0 at reset 
+			colour<=3'b001;    /// assume goes to 1 at reset 
 		else 
 			case(colour)
 				3'b000: colour<=3'b001;
 				3'b111: colour<=3'b001;
-				3'b110: colour<=colour-(3'b101)*(button);
-				default: colour<=colour+(3'b001)*(button);
+				3'b110: colour<=(button)? 3'b001: colour;
+				default: colour<=(button)? colour+3'b1: colour;	// could use mult but mult bad 
 			endcase
 		end
 endmodule 
