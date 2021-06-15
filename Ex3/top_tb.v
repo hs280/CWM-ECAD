@@ -90,8 +90,6 @@ module top_tb(
         end 
 
 	initial
-
-	initial
 	begin
 		#(200*half_period)
 		if (err) begin
