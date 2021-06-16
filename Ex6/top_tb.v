@@ -40,8 +40,7 @@ module testbench;
         .rgb(bench_rgb)
     );
 
-	initial 
-        #10;
+
 			always@ (posedge bench_clk)  begin
 				if (bench_enable) begin 
 				    case(bench_colour)  //propagation delay of ipa
@@ -59,8 +58,7 @@ module testbench;
                 else 
                 expected<=expected;
            end    	    
-initial 
-    #5;
+
     always 
 		  begin
 			#12 bench_colour<=bench_colour+3'b1;			
