@@ -19,12 +19,13 @@
 module full(clk,sel,rst,button,light);
 	input clk;
 	input sel;
-    	input rst;
+    input rst;
 	input button;
 
-	output [23:0] light;                
+	output wire [23:0] light;                
 	
-	wire [2:0]colour
+	wire [2:0]colour;
+	wire [23:0]rgb;
 	
 	lights inst1(
         .clk(clk), 
@@ -36,14 +37,14 @@ module full(clk,sel,rst,button,light);
 	colour_conv inst2(
         .clk(clk), 
         .colour(colour), 
-        .enable(enable), 	//where enable
-        .rgb(bench_rgb)
+        .enable(1'b1), 	//assume always enabled?
+        .rgb(rgb)
     	);
 
 	mult inst3(
-	.a(rgb),
-	.b(6'hFFFFFF)
-	.sel(sel)
+	.a(24'hFFFFFF),
+	.b(rgb),
+	.sel(sel),
 	.out(light)
 	);
 
