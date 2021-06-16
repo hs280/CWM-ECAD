@@ -25,7 +25,7 @@ module lights(clk,rst,button,colour);
 	output reg [2:0] colour;
 	always @(posedge clk or posedge rst)
 		begin
-		if (rst || ^colour==3'bx)
+		if (rst)
 			colour<=3'b001;    /// assume goes to 1 at reset 
 		else 
 			case(colour)

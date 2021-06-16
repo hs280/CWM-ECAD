@@ -25,8 +25,9 @@ module mult(a,b,sel,out);
 	input [23:0]b;
     input sel;
 
-	output wire [23:0]out;                
-	
-	assign #5  out=(sel)? b:a; //assume delay still wanted 
+	output wire [23:0] out ;
+
+	assign #5 out=(sel)? b:a;                
+
 
 endmodule
