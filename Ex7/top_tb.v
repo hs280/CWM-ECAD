@@ -16,7 +16,9 @@ module testbench;
 	reg bench_button=1'b0;
 	reg [23:0] expected=24'h0;
 	reg error_flag=1'b0;
-	reg [23:0]hold;
+	reg [2:0]expected_colour;
+	reg [23:0]expected_rgb=24'b0;
+	wire [23:0] bench_rgb;
 	wire [2:0]bench_colour;
 	wire [23:0] bench_light;
 
@@ -26,14 +28,16 @@ module testbench;
 		#5 bench_clk<=~bench_clk;   
     end
 	
-	always begin
+initial begin
+#10;
+	forever begin
 		#4 bench_button<=~bench_button;
 		#6 bench_button<=~bench_button;
 		#10;
 	end
-	
+end
 	initial begin 
-	   #5;	
+	   #3.1;	
 	   forever begin 
 	   #5;
 	        error_flag<=(expected!=bench_light)? 1'b1:error_flag;
@@ -61,44 +65,76 @@ end
         .colour(bench_colour)
 	);
 
+    	colour_conv inst2(
+        .clk(bench_clk), 
+        .colour(bench_colour), 
+        .enable(1'b1), 	//assume always enabled?
+        .rgb(bench_rgb)
+    	);
+
+    always @(posedge bench_rst) begin
+        expected_colour<=3'b1  ;
+    end
 
 
-			always@ (posedge bench_clk)  begin
-                if (bench_rst==1) begin
-                    #5 expected<=expected<=24'h00FF00;
-                    hold<=expected; end
-                else if (bench_sel) begin 
-				    case({bench_light,bench_button})  //propagation delay of ipa
-					{24'h0000FF,1'b1}: #25 expected<=24'h00FF00;
-					{24'h00FF00,1'b1}: #25 expected<=24'h00FFFF;
-					{24'h00FFFF,1'b1}: #25 expected<=24'hFF0000;
-					{24'hFF0000,1'b1}: #25 expected<=24'hFF00FF;
-					{24'hFF00FF,1'b1}: #25 expected<=24'hFF0000;
-					{24'hFFFF00,1'b1}: #25 expected<=24'h0000FF;
-					default:#25 expected<=hold;		
+
+    always @(posedge bench_clk && bench_button) begin
+        case(bench_rst)
+           1'b0: expected_colour<=(expected_colour==3'b110)? 3'b1: expected_colour+3'b001; 
+           default:expected_colour<=3'b001;
+           endcase      
+    end         
+    initial begin
+			forever@ (posedge bench_clk)  begin
+			if (bench_rst==1) begin
+			            #10;
+                        expected_rgb=24'h0000FF;
+                        #20;
+                        end
+            else begin
+				    case(expected_colour)  //propagation delay of ipa
+					3'b000: expected_rgb<=24'h000000;
+					3'b001: expected_rgb<=24'h0000FF;
+					3'b010: expected_rgb<=24'h00FF00;
+					3'b011: expected_rgb<=24'h00FFFF;
+					3'b100: expected_rgb<=24'hFF0000;
+					3'b101: expected_rgb<=24'hFF00FF;
+					3'b110: expected_rgb<=24'hFFFF00;
+					3'b111: expected_rgb<=24'hFFFFFF;
+					default expected_rgb<=24'hx;		
                 endcase 
-                hold<=expected;
-                end 
-                else
-                #5 expected<=24'hFFFFFF;
+                #20;
+           end 
+       end
+end
+			always@ (posedge bench_sel or posedge (!bench_sel))  begin
+                #5 expected<=(bench_sel)? expected_rgb:24'hFFFFFF;
            end   
-            	    
-	always begin
-		#4 bench_sel<=~bench_sel;
-		#6 bench_sel<=~bench_sel;
-		#20;
+  
+   initial 
+   begin
+   #10;
+   if (!bench_sel) begin 
+        expected<=24'hFFFFFF;
+   end
+    #10;             
+	forever begin
+		#5 bench_sel<=~bench_sel;
+		#11 bench_sel<=~bench_sel;
+		#14;
 	end
-    
+end
     
     
 	initial
 	begin
 	   #1 bench_rst<=~bench_rst;
-	   #2 bench_rst<=~bench_rst;
-	   #300;
+	   expected_colour=3'b1;
+	   #19 bench_rst<=~bench_rst;
+	   #280;
 	   bench_rst<=~bench_rst;
-	   #4; bench_rst<=~bench_rst; 
-		#296 
+	   #10; bench_rst<=~bench_rst; 
+		#290 
 		if (error_flag)
 			$display("***TEST FAILED***");
 		else 
