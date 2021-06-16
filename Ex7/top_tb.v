@@ -49,17 +49,15 @@ end
 
 			always@ (posedge bench_clk)  begin
 				if (bench_sel) begin 
-				    //case({bench_light,bench_button})  //propagation delay of ipa
-					//3'b0001: #25 expected<=24'h000000;
-					//3'b0011: #25 expected<=24'h0000FF;
-					//3'b0101: #25 expected<=24'h00FF00;
-					//3'b0111: #25 expected<=24'h00FFFF;
-					//3'b1001: #25 expected<=24'hFF0000;
-					//3'b1011: #25 expected<=24'hFF00FF;
-					//3'b1101: #25 expected<=24'hFFFF00;
-					//3'b1111: #25 expected<=24'hFFFFFF;
-					//default:#25 expected<=expected;		
-                //endcase 
+				    case({bench_light,bench_button})  //propagation delay of ipa
+					{24'h0000FF,1}: #25 expected<=24'h00FF00;
+					{24'h00FF00,1}: #25 expected<=24'h00FFFF;
+					{24'h00FFFF,1}: #25 expected<=24'hFF0000;
+					{24'hFF0000,1}: #25 expected<=24'hFF00FF;
+					{24'hFF00FF,1}: #25 expected<=24'hFF0000;
+					{24'hFFFF00,1}: #25 expected<=24'h0000FF;
+					default:#25 expected<=expected;		
+                endcase 
                 end 
                 else 
                 expected<=24'hFFFFFF;
