@@ -37,22 +37,7 @@ module testbench;
     assign temperature_2=bench_temperature[2];
     assign temperature_3=bench_temperature[3];
     assign temperature_4=bench_temperature[4];
-    
-    
-            wire bench_clk_ibufds;
 
-    IBUFDS IBUFDS_sysclk (
-	.I(bench_clk_p),
-	.IB(bench_clk_n),
-	.O(bench_clk_ibufds)
-);
-
-     wire bench_clk; //use this signal as a clock for your design
-        
-     BUFG bufg_clk (
-	.I  (bench_clk_ibufds),
-	.O  (bench_clk)
-      );
 
 
 always begin

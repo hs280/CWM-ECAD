@@ -11,7 +11,7 @@
 //  outputs:
 //           heating, cooling
 //////////////////////////////////////////////////////////////////////////////////
-
+`timescale 1ns / 100ps
 
 module top(rst_n,clk_n,clk_p,temperature_0,temperature_1,temperature_2,temperature_3,temperature_4,heating, cooling);
 	

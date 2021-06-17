@@ -18,15 +18,9 @@ set_property BITSTREAM.CONFIG.SPI_FALL_EDGE YES        [current_design]
 
 
 ## Timing Assertions Section
-	# Primary clocks
-	# Virtual clocks
-	create_clock -name clk_p period 10.0 waveform [get_ports clk_p]
-	create_clock name clk_n period 10 [ get_ports clk_n]
-	set_clock_groups -asynchronous -group [get_clocks <clk>
-    -include_generated_clocks]
-	# Clock Groups
-	# Bus Skew constraints
-	# Input and output delay constraints
+    create_clock  -period 10 -name clk [get_ports clk_p]              
+	set_clock_groups -asynchronous -group [get_clocks clk -include_generated_clocks]  
+
 
 	
 
