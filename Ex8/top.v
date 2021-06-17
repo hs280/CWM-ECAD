@@ -13,17 +13,22 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module top(rst_n,clk_n,clk_p,temperature,heating, cooling);
+module top(rst_n,clk_n,clk_p,temperature_0,temperature_1,temperature_2,temperature_3,temperature_4,heating, cooling);
 	
 	input clk_p;
 	input clk_n;
 	input rst_n;
-	input [4:0] temperature;
+	input temperature_0;
+    input temperature_1;
+    input temperature_2;
+    input temperature_3;
+    input temperature_4;
 	
 	output reg heating;
 	output reg cooling;
     
-
+    reg [4:0] temperature;
+    
 /////* clock infrastructure, do not modify *///////////////////////////////////////
         wire clk_ibufds;
 
@@ -40,6 +45,11 @@ module top(rst_n,clk_n,clk_p,temperature,heating, cooling);
 	.O  (clk)
       );
 ///////////////////////////////////////////////////////////////////////////////////
+
+always begin 
+    #1;
+        temperature<=({temperature_4,temperature_3,temperature_2,temperature_1,temperature_0});
+end
 
 always @(posedge clk) begin
     case({heating,cooling})
