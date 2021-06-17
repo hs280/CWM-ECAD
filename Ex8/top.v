@@ -13,14 +13,18 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module top(
-    input clk_p,
-    input clk_n,
-     //Todo: add all other ports besides clk_n and clk_p 
-   );
+module top(rst_n,clk_n,clk_p,temperature,heating, cooling);
+	
+	input clk_p;
+	input clk_n;
+	input rst_n;
+	input [4:0] temperature;
+	
+	output reg heating;
+	output reg cooling;
     
 
-   /* clock infrastructure, do not modify */
+/////* clock infrastructure, do not modify *///////////////////////////////////////
         wire clk_ibufds;
 
     IBUFDS IBUFDS_sysclk (
@@ -35,7 +39,15 @@ module top(
 	.I  (clk_ibufds),
 	.O  (clk)
       );
+///////////////////////////////////////////////////////////////////////////////////
 
-//Add logic here
+always @(posedge clk) begin
+    case({heating,cooling})
+        2'b10:        heating<=(temperature<5'd20)? 1:0;
+        2'b01:        cooling<=(temperature>5'd20)? 1:0;
+        default:begin heating<=(temperature>5'd18)? 0:1;
+                      cooling<=(temperature<5'd22)? 0:1; end
+     endcase
+end
 
 endmodule

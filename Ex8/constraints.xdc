@@ -17,5 +17,47 @@ set_property BITSTREAM.CONFIG.SPI_FALL_EDGE YES        [current_design]
 #############################################################################################################
 
 
+## Timing Assertions Section
+	# Primary clocks
+	# Virtual clocks
+	# Generated clocks
+	# Clock Groups
+	# Bus Skew constraints
+	# Input and output delay constraints
+
+	
+
+## Timing Exceptions Section
+	# False Paths
+	# Max Delay / Min Delay
+	# Multicycle Paths
+	# Case Analysis
+	# Disable Timing
 
 
+## Physical Constraints Section
+	set_property PACKAGE_PIN AU22 [get_ports {heating}]
+	set_property IOSTANDARD LVCMOS18 [get_ports {heating}]
+	
+	set_property PACKAGE_PIN AT22 [get_ports {cooling}]
+	set_property IOSTANDARD LVCMOS18 [get_ports {cooling}]
+	
+	set_property PACKAGE_PIN BC21 [get_ports {temperature_0}]
+	set_property IOSTANDARD LVCMOS18 [get_ports {temperature_0}]
+	
+	set_property PACKAGE_PIN BB21 [get_ports {temperature_1}]
+	set_property IOSTANDARD LVCMOS18 [get_ports {temperature_1}]
+	
+	set_property PACKAGE_PIN BA20 [get_ports {temperature_2}]
+	set_property IOSTANDARD LVCMOS18 [get_ports {temperature_2}]
+	
+	set_property PACKAGE_PIN AL20 [get_ports {temperature_3}]
+	set_property IOSTANDARD LVCMOS18 [get_ports {temperature_3}]
+	
+	set_property PACKAGE_PIN AT20 [get_ports {temperature_4}]
+	set_property IOSTANDARD LVCMOS18 [get_ports {temperature_4}]
+
+	set_property PACKAGE_PIN BD21 [get_ports {rst_n}]
+	set_property IOSTANDARD LVCMOS18 [get_ports {rst_n}]
+	set_property PULLUP true [get_ports rst_n]
+	
