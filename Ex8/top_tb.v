@@ -18,7 +18,7 @@
 
 module testbench;
 
-	reg bench_clk_n=1'b0;
+	reg bench_clk_n=1'b1;
 	reg bench_clk_p=1'b0;
 	reg bench_rst_n=1'b0;
 	reg [4:0]bench_temperature=5'd5;
@@ -56,6 +56,7 @@ module testbench;
 			else	begin		
 			bench_temperature<=bench_temperature-1;end  
 		#2 bench_clk_p=~bench_clk_p;
+		bench_clk_n=~bench_clk_n;
     end
 
 	top inst(.rst_n(bench_rst_n),
