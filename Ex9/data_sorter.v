@@ -26,11 +26,11 @@ module data_sorter(clk, Temp, Desired_Temp,lb_temp,ub_temp,lb_time,ub_time,ub_ch
 	input [6:0] ub_temp;
 	input [5:0] lb_time;
 	input [5:0] ub_time;
-	input [7:0] ub_change;
-	input [7:0] lb_change;
+	input [6:0] ub_change;
+	input [6:0] lb_change;
 	/////////////////////////////////////////////////////////////////
 
-
+	
 	output wire addr_out;
 
 	reg [6:0] old_temp_desired;
@@ -44,7 +44,7 @@ module data_sorter(clk, Temp, Desired_Temp,lb_temp,ub_temp,lb_time,ub_time,ub_ch
 	always @(posedge clk) begin 
 		Temp_state<=(Temp<=lb_temp)? 2'b1: (Temp>=ub_temp)? 2'b11: 2'b10;
 		change_state<=(Temp>Desired_Temp+ub_change)? 2'b1:(Temp<Desired_Temp-lb_change)? 2'b11:2'b10;
-		time_factor<=(Desired_temp==old_temp_desired)? time_factor+6'b1:6'b0;
+		time_factor<=(Desired_temp==old_temp_desired && time_factor<6'b111111)? time_factor+6'b1:(time_factor=6'b111111)? time_factor:6'b0;
 		time_state<=(time_factor<=lb_time)? 2'b1:(time_factor>=ub_time)? 2'b11:2'b10;
 	end
 
