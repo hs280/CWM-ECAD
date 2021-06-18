@@ -3,6 +3,12 @@
 // Student Name:
 // Date: 
 // FLASHES RED/ORANGE if heating and sel BLUE/GREEN if cooling and sel else white
+//
+//  inputs:
+//           clk, sel, rst, button
+//
+//  outputs:
+//           light [23:0]
 //////////////////////////////////////////////////////////////////////////////////
 
 `timescale 1ns / 100ps
@@ -10,7 +16,7 @@
 module full(clk,sel,rst,temperature,desired_temperature,light,state);
 	input clk;
 	input sel;
-    input rst;
+    	input rst;
 	input [4:0]temperature;
 	input [4:0] desired_temperature;
 

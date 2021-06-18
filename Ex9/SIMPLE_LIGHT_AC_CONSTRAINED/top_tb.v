@@ -4,24 +4,38 @@
 `timescale 1ns / 100ps
 
 module testbench;
+    wire temperature_0;
+    wire temperature_1;
+    wire temperature_2;
+    wire temperature_3;
+    wire temperature_4;
+    
+ 
 
 	reg bench_clk=1'b0;
 	reg [4:0]bench_temperature=5'd5;
 	reg [23:0]expected_rgb=24'hx;
-    reg [23:0]expected=24'h0;
+    	reg [23:0]expected=24'h0;
 	reg error_flag=1'b0;
 	reg bench_sel=1'b0;
-    reg bench_rst=1'b0;
+    	reg bench_rst=1'b0;
 	reg [4:0] bench_desired_temperature=5'd22;
-    wire [1:0] bench_state;
-    reg bench_counter=1'b0;
+    	wire [1:0] bench_state;
+	reg bench_counter=1'b0;
     
-	 wire [23:0] bench_light;                	
+	wire [23:0] bench_light;                	
     
-    wire [2:0]colour;
-    wire [23:0] rgb;
-    wire  [23:0] light;
- 
+//    	wire [2:0]colour;
+//    	wire [23:0] rgb;
+//    	wire  [23:0] light;
+    
+	assign temperature_0=bench_temperature[0];
+    	assign temperature_1=bench_temperature[1];
+    	assign temperature_2=bench_temperature[2];
+    	assign temperature_3=bench_temperature[3];
+    	assign temperature_4=bench_temperature[4];
+
+
  initial begin #3;   
     forever begin
       expected=(bench_sel)? expected_rgb:24'hFFFFFF;
@@ -82,26 +96,26 @@ end
 	    );
 
 
-	lights inst1(
-        .clk(bench_clk), 
-        .rst(bench_rst), 
-        .state(bench_state), 
-        .colour(colour)
-	);
+//	lights inst1(
+//        .clk(bench_clk), 
+//        .rst(bench_rst), 
+//        .state(bench_state), 
+//        .colour(colour)
+//	);
 
-	colour_conv inst2(
-        .clk(bench_clk), 
-        .colour(colour), 
-        .enable(1'b1), 	//assume always enabled?
-        .rgb(rgb)
-    	);
+//	colour_conv inst2(
+//        .clk(bench_clk), 
+//        .colour(colour), 
+//        .enable(1'b1), 	//assume always enabled?
+//        .rgb(rgb)
+//   	);
 
-	mult inst3(
-	.a(24'hFFFFFF),
-	.b(rgb),
-	.sel(bench_sel),
-	.out(light)
-	);
+//	mult inst3(
+//	.a(24'hFFFFFF),
+//	.b(rgb),
+//	.sel(bench_sel),
+//	.out(light)
+//	);
     
     
 	initial 

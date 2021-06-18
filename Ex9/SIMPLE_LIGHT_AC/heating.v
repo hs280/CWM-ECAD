@@ -23,6 +23,7 @@
 
 	always @(posedge clk)
 		begin 
+		#4;
             case({heating,cooling})
                 2'b10:        heating<=(temperature<desired_temp)? 1:0;
                 2'b01:        cooling<=(temperature>desired_temp)? 1:0;
