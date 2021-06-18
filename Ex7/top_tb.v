@@ -18,8 +18,8 @@ module testbench;
 	reg error_flag=1'b0;
 	reg [2:0]expected_colour;
 	reg [23:0]expected_rgb=24'b0;
-	wire [23:0] bench_rgb;
-	wire [2:0]bench_colour;
+//	wire [23:0] bench_rgb;
+//	wire [2:0]bench_colour;
 	wire [23:0] bench_light;
 
 
@@ -58,19 +58,19 @@ end
     );
 
 
-	lights inst1(
-        .clk(bench_clk), 
-        .rst(bench_rst), 
-        .button(bench_button), 
-        .colour(bench_colour)
-	);
+//	lights inst1(
+//        .clk(bench_clk), 
+//        .rst(bench_rst), 
+//        .button(bench_button), 
+//        .colour(bench_colour)
+//	);
 
-    	colour_conv inst2(
-        .clk(bench_clk), 
-        .colour(bench_colour), 
-        .enable(1'b1), 	//assume always enabled?
-        .rgb(bench_rgb)
-    	);
+//    	colour_conv inst2(
+//        .clk(bench_clk), 
+//        .colour(bench_colour), 
+//        .enable(1'b1), 	//assume always enabled?
+//        .rgb(bench_rgb)
+//    	);
 
     always @(posedge bench_rst) begin
         expected_colour<=3'b1  ;
